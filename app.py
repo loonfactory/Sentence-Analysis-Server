@@ -1,6 +1,9 @@
 from flask import Flask, render_template
+from konlpy.tag import Mecab
+import json
 
 app = Flask(__name__)
+mecab = Mecab()
 
 @app.route("/")
 def hello():
@@ -17,4 +20,4 @@ def sentence_defualt():
 
 @app.route('/sentence/<string>')
 def sentence(string):
-  return string
+  return json.dumps(mecab.pos(string), ensure_ascii = False)
